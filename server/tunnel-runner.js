@@ -8,31 +8,44 @@ const tunnelLogFile = path.join(__dirname, 'data', 'active-tunnel.txt');
 
 let currentUrl = null;
 let pingInterval = null;
+let currentProc = null;
 
 function startTunnel() {
-  console.log('[Tunnel Runner] Starting Cloudflare tunnel with HTTP/2 persistent connection...');
+  console.log('[Tunnel Runner] Starting Cloudflare tunnel with persistent keep-alive...');
   
-  const proc = spawn(cloudflaredPath, [
+  currentProc = spawn(cloudflaredPath, [
     'tunnel',
-    '--protocol', 'http2',
     '--url', 'http://localhost:5000'
   ], {
     windowsHide: true
   });
 
-  proc.stdout.on('data', handleOutput);
-  proc.stderr.on('data', handleOutput);
+  currentProc.stdout.on('data', handleOutput);
+  currentProc.stderr.on('data', handleOutput);
 
-  proc.on('close', (code) => {
-    console.warn(`[Tunnel Runner] Tunnel process exited with code ${code}. Reconnecting in 3 seconds...`);
+  currentProc.on('close', (code) => {
+    console.warn(`[Tunnel Runner] Tunnel process exited with code ${code}. Reconnecting in 2 seconds...`);
     if (pingInterval) clearInterval(pingInterval);
-    setTimeout(startTunnel, 3000);
+    setTimeout(startTunnel, 2000);
   });
 }
 
 function handleOutput(data) {
   const text = data.toString();
   process.stdout.write(text);
+
+  // If Cloudflare expired the quick tunnel session, kill process to trigger auto-restart!
+  if (text.includes('Unauthorized: Tunnel not found') || 
+      text.includes('Error shutting down control stream') ||
+      text.includes('failed to dial to edge with quic: timeout')) {
+    console.warn('\n[Tunnel Runner] Cloudflare session expired or dropped. Killing process to generate fresh tunnel...');
+    if (currentProc) {
+      try {
+        currentProc.kill('SIGKILL');
+      } catch (e) {}
+    }
+    return;
+  }
 
   // Match https://*.trycloudflare.com
   const match = text.match(/https:\/\/[a-zA-Z0-9-]+\.trycloudflare\.com/);
@@ -46,15 +59,16 @@ function handleOutput(data) {
       fs.writeFileSync(tunnelLogFile, currentUrl, 'utf8');
     } catch (e) {}
 
-    // Setup keep-alive ping every 30 seconds to prevent idle timeout
+    // Setup keep-alive ping every 25 seconds with proper stream consumption
     if (pingInterval) clearInterval(pingInterval);
     pingInterval = setInterval(() => {
       if (currentUrl) {
         https.get(`${currentUrl}/api/health`, (res) => {
-          // Keep-alive OK
+          // MUST consume response body to release socket back to pool
+          res.resume();
         }).on('error', () => {});
       }
-    }, 30000);
+    }, 25000);
   }
 }
 
