@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Mail, AlertCircle, X, Lock } from 'lucide-react';
+import { verifyCommittee } from '../services/api';
 
 export default function CommitteeLoginModal({ 
   isOpen, 
@@ -24,21 +25,15 @@ export default function CommitteeLoginModal({
 
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: cleanEmail })
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
+      const data = await verifyCommittee(cleanEmail);
+      if (data && data.success) {
         onLoginSuccess(data.email);
         onClose();
       } else {
-        setError(data.message || 'Email tidak terdaftar sebagai panitia yang berwenang.');
+        setError(data?.message || 'Email tidak terdaftar sebagai panitia yang berwenang.');
       }
     } catch {
-      setError('Gagal menghubungi server. Pastikan backend server berjalan.');
+      setError('Terjadi kendala saat verifikasi. Silakan coba kembali.');
     } finally {
       setLoading(false);
     }

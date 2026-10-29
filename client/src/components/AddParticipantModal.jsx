@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserPlus, X, AlertCircle } from 'lucide-react';
+import { addParticipant } from '../services/api';
 
 export default function AddParticipantModal({ isOpen, onClose, onAdded }) {
   const [name, setName] = useState('');
@@ -23,20 +24,15 @@ export default function AddParticipantModal({ isOpen, onClose, onAdded }) {
     setError('');
 
     try {
-      const res = await fetch('/api/participants', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name.trim(),
-          institution: institution.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
-          customBarcode: customBarcode.trim() || undefined
-        })
+      const data = await addParticipant({
+        name: name.trim(),
+        institution: institution.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        customBarcode: customBarcode.trim() || undefined
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      if (data && data.success && data.participant) {
         onAdded(data.participant);
         onClose();
         setName('');
@@ -45,7 +41,7 @@ export default function AddParticipantModal({ isOpen, onClose, onAdded }) {
         setPhone('');
         setCustomBarcode('');
       } else {
-        setError(data.message || 'Gagal menambahkan peserta.');
+        setError(data?.message || 'Gagal menambahkan peserta.');
       }
     } catch {
       setError('Terjadi kesalahan saat menyimpan data peserta.');

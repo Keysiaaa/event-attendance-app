@@ -7,6 +7,7 @@ import CommitteeLoginModal from './components/CommitteeLoginModal';
 import AddParticipantModal from './components/AddParticipantModal';
 import BatchImportModal from './components/BatchImportModal';
 import PrintAllBadges from './components/PrintAllBadges';
+import { fetchParticipants as loadParticipants, deleteParticipant as removeParticipant } from './services/api';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('generator'); // 'generator' | 'scanner' | 'rekap'
@@ -25,9 +26,8 @@ export default function App() {
   // Fetch participants
   const fetchParticipants = async () => {
     try {
-      const res = await fetch('/api/participants');
-      if (res.ok) {
-        const data = await res.json();
+      const data = await loadParticipants();
+      if (Array.isArray(data)) {
         setParticipants(data);
       }
     } catch (err) {
@@ -57,10 +57,8 @@ export default function App() {
   const handleDeleteParticipant = async (id) => {
     if (!window.confirm('Yakin ingin menghapus peserta ini?')) return;
     try {
-      const res = await fetch(`/api/participants/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setParticipants((prev) => prev.filter((p) => p.id !== id && p.barcode !== id));
-      }
+      await removeParticipant(id);
+      setParticipants((prev) => prev.filter((p) => p.id !== id && p.barcode !== id));
     } catch (err) {
       console.error('Failed to delete participant:', err);
     }

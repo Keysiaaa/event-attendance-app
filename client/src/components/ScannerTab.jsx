@@ -21,6 +21,7 @@ import {
   PlayCircle
 } from 'lucide-react';
 import { playBeep } from '../utils/audio';
+import { lookupParticipant as apiLookupParticipant, recordAttendance as apiRecordAttendance } from '../services/api';
 
 export default function ScannerTab({ 
   committee, 
@@ -64,10 +65,9 @@ export default function ScannerTab({
 
     setMessage(null);
     try {
-      const res = await fetch(`/api/participants/lookup/${encodeURIComponent(cleanCode)}`);
-      const data = await res.json();
+      const data = await apiLookupParticipant(cleanCode);
 
-      if (res.ok && data.success) {
+      if (data && data.success && data.participant) {
         playBeep('success');
         setSelectedParticipant(data.participant);
         setManualCode('');
@@ -86,7 +86,7 @@ export default function ScannerTab({
         playBeep('error');
         setMessage({
           type: 'error',
-          text: data.message || `Peserta dengan barcode "${cleanCode}" tidak ditemukan.`
+          text: data?.message || `Peserta dengan barcode "${cleanCode}" tidak ditemukan.`
         });
         // Release pause if not found so they can scan again
         setTimeout(() => {
@@ -101,7 +101,7 @@ export default function ScannerTab({
       }
     } catch {
       playBeep('error');
-      setMessage({ type: 'error', text: 'Gagal mencari peserta. Periksa koneksi server.' });
+      setMessage({ type: 'error', text: 'Gagal mencari peserta.' });
       isScanningPausedRef.current = false;
       setIsPaused(false);
     }
@@ -194,22 +194,14 @@ export default function ScannerTab({
 
     setLoading(true);
     try {
-      const res = await fetch('/api/attendance', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-committee-email': committee
-        },
-        body: JSON.stringify({
-          barcode: selectedParticipant.barcode || selectedParticipant.id,
-          sessionId: sessionId,
-          status: status, // 'hadir' | 'tidak_hadir'
-          committeeEmail: committee
-        })
-      });
+      const data = await apiRecordAttendance(
+        selectedParticipant.barcode || selectedParticipant.id,
+        sessionId,
+        status,
+        committee
+      );
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      if (data && data.success && data.participant) {
         playBeep('success');
         setSelectedParticipant(data.participant);
         setMessage({
@@ -223,12 +215,12 @@ export default function ScannerTab({
         playBeep('error');
         setMessage({
           type: 'error',
-          text: data.message || 'Gagal menyimpan status kehadiran.'
+          text: data?.message || 'Gagal menyimpan status kehadiran.'
         });
       }
     } catch {
       playBeep('error');
-      setMessage({ type: 'error', text: 'Terjadi kesalahan pada server saat mencatat kehadiran.' });
+      setMessage({ type: 'error', text: 'Terjadi kesalahan saat mencatat kehadiran.' });
     } finally {
       setLoading(false);
     }

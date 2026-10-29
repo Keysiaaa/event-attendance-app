@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, X, AlertCircle, CheckCircle } from 'lucide-react';
+import { batchImportParticipants } from '../services/api';
 
 export default function BatchImportModal({ isOpen, onClose, onBatchAdded }) {
   const [text, setText] = useState('');
@@ -42,22 +43,14 @@ export default function BatchImportModal({ isOpen, onClose, onBatchAdded }) {
     });
 
     try {
-      const res = await fetch('/api/participants/batch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          names: parsedParticipants,
-          institutionDefault: defaultInstitution
-        })
-      });
+      const data = await batchImportParticipants(parsedParticipants, defaultInstitution);
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      if (data && data.success) {
         onBatchAdded();
         onClose();
         setText('');
       } else {
-        setError(data.message || 'Gagal menambahkan peserta massal.');
+        setError(data?.message || 'Gagal menambahkan peserta massal.');
       }
     } catch {
       setError('Terjadi kesalahan saat memproses data massal.');

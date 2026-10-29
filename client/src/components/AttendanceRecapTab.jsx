@@ -11,6 +11,7 @@ import {
   Clock, 
   AlertCircle 
 } from 'lucide-react';
+import { recordAttendance as apiRecordAttendance, exportAttendanceCsv } from '../services/api';
 
 export default function AttendanceRecapTab({ 
   participants = [], 
@@ -70,21 +71,8 @@ export default function AttendanceRecapTab({
     }
 
     try {
-      const res = await fetch('/api/attendance', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-committee-email': committee
-        },
-        body: JSON.stringify({
-          barcode,
-          sessionId,
-          status: newStatus,
-          committeeEmail: committee
-        })
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
+      const data = await apiRecordAttendance(barcode, sessionId, newStatus, committee);
+      if (data && data.success && data.participant) {
         if (onAttendanceUpdated) {
           onAttendanceUpdated(data.participant);
         }
@@ -95,7 +83,7 @@ export default function AttendanceRecapTab({
   };
 
   const handleDownloadCsv = () => {
-    window.open('/api/export', '_blank');
+    exportAttendanceCsv(participants);
   };
 
   return (
