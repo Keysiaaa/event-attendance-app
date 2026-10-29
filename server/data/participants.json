@@ -1,0 +1,1812 @@
+[
+  {
+    "id": "EVT-1001",
+    "barcode": "EVT-1001",
+    "name": "Hendhy Timex, S.H., M.Kn.",
+    "institution": "PPAT - Kota Manado",
+    "email": "sekering01@gmail.com",
+    "phone": "-",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": {
+        "status": "hadir",
+        "timestamp": "2026-10-29T08:56:02.569Z",
+        "markedBy": "fvsefira@gmail.com",
+        "sessionName": "Registrasi awal"
+      },
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1002",
+    "barcode": "EVT-1002",
+    "name": "ANG VINCENT LAWRENCE ANGELO SENDOW, S.H., M.Kn.",
+    "institution": "PPAT - Kota Manado",
+    "email": "office.vincentsendow@gmail.com",
+    "phone": "081770088990",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": {
+        "status": "hadir",
+        "timestamp": "2026-10-29T08:54:56.121Z",
+        "markedBy": "fvsefira@gmail.com",
+        "sessionName": "Registrasi awal"
+      },
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1003",
+    "barcode": "EVT-1003",
+    "name": "Linda Joan Tanos, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "lindajo.tanos@gmail.com",
+    "phone": "081362270606",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1004",
+    "barcode": "EVT-1004",
+    "name": "JOSHUA KELVIN GANI, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "notarisjoshuagani@gmail.com",
+    "phone": "081333257258",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1005",
+    "barcode": "EVT-1005",
+    "name": "ANGELINE WIRAWAN, S.H.,M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "angelinewirawan2002@gmail.com",
+    "phone": "085386187688",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1006",
+    "barcode": "EVT-1006",
+    "name": "SHIRLEY NATASHA SIGIT, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "shirleysigit@gmail.com",
+    "phone": "085649473828",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1007",
+    "barcode": "EVT-1007",
+    "name": "YENNY HIMAWAN HIEM, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "yennyhiem@gmail.com",
+    "phone": "08113291711",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1008",
+    "barcode": "EVT-1008",
+    "name": "ERIKA LIERENSIA, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "erikalierensia@gmail.com",
+    "phone": "082335492667",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1009",
+    "barcode": "EVT-1009",
+    "name": "Leiga Alfita Soelaiman, SH, MH",
+    "institution": "PPAT - Kota Bitung",
+    "email": "leigaalfita@gmail.com",
+    "phone": "085256223432",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1010",
+    "barcode": "EVT-1010",
+    "name": "DIANE MERY CHRISTI MAKAWIMBANG, S.H., M.H., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "christilaw88@gmail.com",
+    "phone": "0811434357",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1011",
+    "barcode": "EVT-1011",
+    "name": "WINDA TAURINA YAPARI S.H.,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "winda.yapari@gmail.com",
+    "phone": "085733877729",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1012",
+    "barcode": "EVT-1012",
+    "name": "Eva Indrayani Buida,S.H.,M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "eva.buida18@gmail.com",
+    "phone": "081310772790",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1013",
+    "barcode": "EVT-1013",
+    "name": "Ririn Irawaty Danumulyo,S.H.,M.Hum.,M.Kn.",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow",
+    "email": "not.ppat.rid@gmail.com",
+    "phone": "082225315666",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1014",
+    "barcode": "EVT-1014",
+    "name": "ANDRE AMBROSIUS ABRAHAM PAAT",
+    "institution": "PPAT - Kota Manado",
+    "email": "andreugm9888@gmail.com",
+    "phone": "081340117611",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1015",
+    "barcode": "EVT-1015",
+    "name": "FANNY MEILIN TUWO, SH., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fanny.meilin16@gmail.com",
+    "phone": "085240653777",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1016",
+    "barcode": "EVT-1016",
+    "name": "RICHIE YOURIKO KAUNANG, S.H., M.Kn., M.H.",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow",
+    "email": "richiekaunang23@gmail.com",
+    "phone": "085398778222",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1017",
+    "barcode": "EVT-1017",
+    "name": "IKHNAN ABDUL GHANI,S.H.,M.Kn.",
+    "institution": "PPAT - Kota Kotamobagu",
+    "email": "notarisppat.ikhnan@gmail.com",
+    "phone": "082189453786",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Kotamobagu",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1018",
+    "barcode": "EVT-1018",
+    "name": "RIZKO MONOARFA, S.H, M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow Selatan",
+    "email": "monoarfarizko@gmail.com",
+    "phone": "081355888011",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow Selatan",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1019",
+    "barcode": "EVT-1019",
+    "name": "IKA ERNIWATI, S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow Timur",
+    "email": "notaris.ikaerniwati@gmail.com",
+    "phone": "082190879095",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow Timur",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1020",
+    "barcode": "EVT-1020",
+    "name": "HUTERISIA CHRISTINE PANGOW KATIANDAGHO, S.H., M.Kn.",
+    "institution": "PPAT - Kota Bitung",
+    "email": "huterisiakatiandagho17@gmail.com",
+    "phone": "081212081144",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1021",
+    "barcode": "EVT-1021",
+    "name": "Fiona Lourensa Pelafu, S.H., M.Kn.",
+    "institution": "PPAT - Kota Bitung",
+    "email": "fionapelafu@gmail.com",
+    "phone": "0811432658",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1022",
+    "barcode": "EVT-1022",
+    "name": "Edmund L. Mangowal, S.H.,M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "edmundmangowal@gmail.com",
+    "phone": "081340001616",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1023",
+    "barcode": "EVT-1023",
+    "name": "RIZKY RUSTANTO",
+    "institution": "PPAT - Kota Manado",
+    "email": "rizkyrustanto@gmail.com",
+    "phone": "081312609339",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1024",
+    "barcode": "EVT-1024",
+    "name": "Hara Dongan Simamora, S.H.,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "harasimamora74@gmail.com",
+    "phone": "081243879600",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1025",
+    "barcode": "EVT-1025",
+    "name": "Taufik Jan Latamu, S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow Utara",
+    "email": "justitia11605@gmail.com",
+    "phone": "085240240065",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1026",
+    "barcode": "EVT-1026",
+    "name": "INGE SOFIAN, SH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "081230119709",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1027",
+    "barcode": "EVT-1027",
+    "name": "Christian Gilberd Sumolang, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "gilberdmknui@gmail.com",
+    "phone": "082290067726",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1028",
+    "barcode": "EVT-1028",
+    "name": "Rosalia Daisy Ismawi, S.H., M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "rosaliaismawi92@gmail.com",
+    "phone": "0818432324",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1029",
+    "barcode": "EVT-1029",
+    "name": "CHANDRA ERNALDO, SH., M.Kn",
+    "institution": "PPAT - Kota Bitung",
+    "email": "chandraernaldo@gmail.com",
+    "phone": "082197138008",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1030",
+    "barcode": "EVT-1030",
+    "name": "Lounna Rizky Bellina Sari Priharyadi, S.H., M.Kn.",
+    "institution": "PPAT - Kota Manado",
+    "email": "lounnapriharyadi@gmail.com",
+    "phone": "08111022770",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1031",
+    "barcode": "EVT-1031",
+    "name": "Bill Juanref Waleleng, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "billjw7@gmail.com",
+    "phone": "08114340188",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1032",
+    "barcode": "EVT-1032",
+    "name": "MUHAMMAD AHLUL FIKRI, SH., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "muhammadahlulfikri10@gmail.com",
+    "phone": "081318148122",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1033",
+    "barcode": "EVT-1033",
+    "name": "CHRISTIAN ADI SANTOSO, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "adisantoso.christian@gmail.com",
+    "phone": "082234408541",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1034",
+    "barcode": "EVT-1034",
+    "name": "Rizky Fauzi R. Zees, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "rizkyzees999@gmail.com",
+    "phone": "081321820313",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1035",
+    "barcode": "EVT-1035",
+    "name": "ELRICK CHRISTIAN RUNTUKAHU, SH, M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa",
+    "email": "fvsefira@gmail.com",
+    "phone": "085103323320",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.131561+00:00"
+  },
+  {
+    "id": "EVT-1036",
+    "barcode": "EVT-1036",
+    "name": "FELEXIA JACQUALYNE WEKU, SH., M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "085240077548",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1037",
+    "barcode": "EVT-1037",
+    "name": "Elhana Mamesah S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa",
+    "email": "elhanamamesah@gmail.com",
+    "phone": "081396066991",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1038",
+    "barcode": "EVT-1038",
+    "name": "Nur Artafitriyah Modanggu,S.H.,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "artamodanggu27@gmail.com",
+    "phone": "081340203795",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1039",
+    "barcode": "EVT-1039",
+    "name": "VIDYA MAHARANI, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "notarisvidya@gmail.com",
+    "phone": "085271684050",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1040",
+    "barcode": "EVT-1040",
+    "name": "GILBERT STEVANUS SUMENDAP, S.H,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Kota Manado",
+    "email": "gibeyt99@gmail.com",
+    "phone": "081343604399",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1041",
+    "barcode": "EVT-1041",
+    "name": "Celline Gabriella Tampi, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "cellinegtampi@gmail.com",
+    "phone": "081242109053",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1042",
+    "barcode": "EVT-1042",
+    "name": "LUKAS HARIDJAJA GANI, S.H.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "notarislukasgani@gmail.com",
+    "phone": "0811300477",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1043",
+    "barcode": "EVT-1043",
+    "name": "Meisaro Carolina Mohune, SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "meisarocarolinamohune16@gmail.com",
+    "phone": "0821-8991-8475",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1044",
+    "barcode": "EVT-1044",
+    "name": "NELTJE TEWU, SH, M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "081296353937",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1045",
+    "barcode": "EVT-1045",
+    "name": "JULIANA AN, SH, M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "082347851600",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1046",
+    "barcode": "EVT-1046",
+    "name": "DEVIE STEPHANNIE SARIOWAN, SH, M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "08124272033",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1047",
+    "barcode": "EVT-1047",
+    "name": "NANCY ANGELINA MARIA TULUNG, SH., M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "087791289300",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1048",
+    "barcode": "EVT-1048",
+    "name": "Monica Olivia, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "monicaolivia.notarisppat@gmail.com",
+    "phone": "081333257257",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1049",
+    "barcode": "EVT-1049",
+    "name": "Dr. Ir. JOYCE MARGARETH WURANGIAN, SH., M.Kn",
+    "institution": "PPAT - Kota Bitung",
+    "email": "fvsefira@gmail.com",
+    "phone": "0811430280",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1050",
+    "barcode": "EVT-1050",
+    "name": "Larasati Fitriyani Marsidi, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "larasfitriyani28@gmail.com",
+    "phone": "081340751271",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1051",
+    "barcode": "EVT-1051",
+    "name": "Nur Afifah Sitti Maharani Musa, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "afifamhrani9@gmail.com",
+    "phone": "085868559999",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1052",
+    "barcode": "EVT-1052",
+    "name": "Nur Afifah Sitti Maharani Musa, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "afifamhrani9@gmail.com",
+    "phone": "085868559999",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1053",
+    "barcode": "EVT-1053",
+    "name": "Isnilah Nur Rachman, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "isnilah2017@gmail.com",
+    "phone": "081245666644",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1054",
+    "barcode": "EVT-1054",
+    "name": "VANNY DJAKATARA, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "vannydjakatara91@gmail.com",
+    "phone": "082259497311",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1055",
+    "barcode": "EVT-1055",
+    "name": "VANNY DJAKATARA, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "vannydjakatara91@gmail.com",
+    "phone": "082259497311",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1056",
+    "barcode": "EVT-1056",
+    "name": "Fatmawaty Arkani, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "fatmawatyark@gmail.com",
+    "phone": "085854632491/081586015305",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1057",
+    "barcode": "EVT-1057",
+    "name": "DELINA PATRICIA, S.H.,M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow",
+    "email": "harry.mok4@gmail.com",
+    "phone": "081355679936",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1058",
+    "barcode": "EVT-1058",
+    "name": "EDWIN WANGTAPUTRA PANGERAPAN, S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow",
+    "email": "ewinpangerapan1983@gmail.com",
+    "phone": "085343771715",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1059",
+    "barcode": "EVT-1059",
+    "name": "IRWANDY SAMAD, S.H., M.Kn",
+    "institution": "PPAT - Kota Kotamobagu",
+    "email": "irwandysamad@gmail.com",
+    "phone": "08114306118",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Kotamobagu",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1060",
+    "barcode": "EVT-1060",
+    "name": "MIKA DINA PRATIWI SUDIARSO, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "mikadina88@gmail.com",
+    "phone": "082326602819",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1061",
+    "barcode": "EVT-1061",
+    "name": "NATHASYA ANGIE VERONICA OROH, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa",
+    "email": "nathasya.angie@gmail.com",
+    "phone": "085817999358",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1062",
+    "barcode": "EVT-1062",
+    "name": "TOMMY OROH, S.H.",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "nathasya.angie@gmail.com",
+    "phone": "089507524846",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1063",
+    "barcode": "EVT-1063",
+    "name": "Astri Angreani Kiyai Demak,S.H,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Kabupaten Minahasa",
+    "email": "kiaydemakastri@gmail.com",
+    "phone": "085241860763",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1064",
+    "barcode": "EVT-1064",
+    "name": "Julianty Mintahang Paputungan, S.H., M.Kn",
+    "institution": "PPAT - Kota Kotamobagu",
+    "email": "kantornotarisjulianty@gmail.com",
+    "phone": "082324172489",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Kotamobagu",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1065",
+    "barcode": "EVT-1065",
+    "name": "RANIA HAVID BADJEBER, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "raniabadjber@gmail.com",
+    "phone": "08114333361",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1066",
+    "barcode": "EVT-1066",
+    "name": "A SHINTA NADILA, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "shinta.nadila32@gmail.com",
+    "phone": "08114341197",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1067",
+    "barcode": "EVT-1067",
+    "name": "Erick Malombeke S.H.,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "erickm123ig@gmail.com",
+    "phone": "085394032308",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1068",
+    "barcode": "EVT-1068",
+    "name": "MADE SARMILA, S.H., M.Kn.",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "miasarmila70@gmail.com",
+    "phone": "085254706833",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1069",
+    "barcode": "EVT-1069",
+    "name": "Pingkan Chandra Dewi Tamaka SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "pingkantamaka1@gmail.com",
+    "phone": "081378060808",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1070",
+    "barcode": "EVT-1070",
+    "name": "Ronald Tanasal, S.H., M.Kn.",
+    "institution": "PPAT - Kota Manado",
+    "email": "ronaldnotary.office@gmail.com",
+    "phone": "085241385511",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1071",
+    "barcode": "EVT-1071",
+    "name": "Lovely Karen Emmanuele de Fretes, SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "huterisiakatiandagho17@gmail.com",
+    "phone": "082189260678",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1072",
+    "barcode": "EVT-1072",
+    "name": "Eric Suma Widjaja, SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "huterisiakatiandagho17@gmail.com",
+    "phone": "082189260678",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1073",
+    "barcode": "EVT-1073",
+    "name": "Indah Paramita, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "mustapaaindah@gmail.com",
+    "phone": "081242009658",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1074",
+    "barcode": "EVT-1074",
+    "name": "Yesika Adhisdea Baderan, SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "yesikabaderan@gmail.com",
+    "phone": "082189112197",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1075",
+    "barcode": "EVT-1075",
+    "name": "Firgin letitia talibo, S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Bolaang Mongondow Utara",
+    "email": "firginletitia@gmail.com",
+    "phone": "08124194716",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Bolaang Mongondow Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1076",
+    "barcode": "EVT-1076",
+    "name": "Berty Oldy Jerry Waleleng, S.H., M.Kn",
+    "institution": "PPAT - Kota Bitung",
+    "email": "huterisiakatiandagho17@gmail.com",
+    "phone": "08114306733",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1077",
+    "barcode": "EVT-1077",
+    "name": "Treytje Femmy Rieke Wondal, SH, MKn",
+    "institution": "PPAT - Kabupaten Minahasa",
+    "email": "huterisiakatiandagho17@gmail.com",
+    "phone": "081356958399",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1078",
+    "barcode": "EVT-1078",
+    "name": "MEISKE MANDAGI, SH., MH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "081356288827",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1079",
+    "barcode": "EVT-1079",
+    "name": "YENNI KAUNANG, SH., M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "082347551714",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1080",
+    "barcode": "EVT-1080",
+    "name": "Muhammad Adi Saputra, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "adysaputra70@gmail.com",
+    "phone": "081240144446",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1081",
+    "barcode": "EVT-1081",
+    "name": "Marcellino Vincentcio, S.H., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "mvincentcio@gmail.com",
+    "phone": "085343987171",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1082",
+    "barcode": "EVT-1082",
+    "name": "Meiske Mandagi. Sh.Mh.M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "m3imandagi@gmail.com",
+    "phone": "081356288827",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1083",
+    "barcode": "EVT-1083",
+    "name": "RAHMADIKA SEFIRA EDLYNAFITRI, SH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "085256173999",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1084",
+    "barcode": "EVT-1084",
+    "name": "HIKMAH DEVI HAYATDIAN, SH., MH",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "08124449060",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1085",
+    "barcode": "EVT-1085",
+    "name": "RAHMADIKA SAFIRA EDITHAFITRI, SH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa",
+    "email": "dithasafira@gmail.com",
+    "phone": "085256173888",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1086",
+    "barcode": "EVT-1086",
+    "name": "DJORGHY REO ANGELO BAHAR., SH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "081355875527",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1087",
+    "barcode": "EVT-1087",
+    "name": "Ronlad Richy Tayu SH MKn",
+    "institution": "PPAT - Kota Manado",
+    "email": "ronaldrichy01@gmail.com",
+    "phone": "081340788889",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1088",
+    "barcode": "EVT-1088",
+    "name": "PAUL TARIGAN, SH.,M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "08114344550",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1089",
+    "barcode": "EVT-1089",
+    "name": "MERLYN PONTOH., SH., M.Kn",
+    "institution": "PPAT - Kota Manado",
+    "email": "fvsefira@gmail.com",
+    "phone": "085299800398",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1090",
+    "barcode": "EVT-1090",
+    "name": "TRY NURYANDI ISMANTO PAUWENI, S.H., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "trynuryandi12345@gmail.com",
+    "phone": "081559601606",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1091",
+    "barcode": "EVT-1091",
+    "name": "Cindy Beatrice Glorianna Mogie, S.H., M.Kn.",
+    "institution": "PPAT - Kota Bitung",
+    "email": "cindymarialie@gmail.com",
+    "phone": "087755773336",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1092",
+    "barcode": "EVT-1092",
+    "name": "Delia Amanda Iroth, S.H.,M.Kn.",
+    "institution": "PPAT - Kota Manado",
+    "email": "notarisppat.deliairoth@gmail.com",
+    "phone": "082189099969",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Manado",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1093",
+    "barcode": "EVT-1093",
+    "name": "I NYOMAN SETIADI SABDA, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "sabdasetiadiinyoman@gmail.com",
+    "phone": "082336600555",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1094",
+    "barcode": "EVT-1094",
+    "name": "KEVRENT TIMOTEUS SUMURUNG, SH., M.Kn",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "fvsefira@gmail.com",
+    "phone": "08114321282",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1095",
+    "barcode": "EVT-1095",
+    "name": "ANDREYLA REGINA NUSA, S.H.,M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "notarisandreylanusa@gmail.com",
+    "phone": "081220404314",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1096",
+    "barcode": "EVT-1096",
+    "name": "GENESIA KHEREN ANGELY ELIM, S.H., M.Kn",
+    "institution": "PPAT - Kota Bitung",
+    "email": "angelyelim6@gmail.com",
+    "phone": "082346522416",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Bitung",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1097",
+    "barcode": "EVT-1097",
+    "name": "DIDI KRISMANTO DENNA S.H.,M.Kn.",
+    "institution": "PPAT - Kota Kotamobagu",
+    "email": "dididenna81@gmail.com",
+    "phone": "085256138007",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kota Kotamobagu",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1098",
+    "barcode": "EVT-1098",
+    "name": "FRISKA LIAN SHINDY WONGKAR., SH., M.Kn",
+    "institution": "Anggota Luar Biasa (ALB) IPPAT - Anggota Luar Biasa (ALB) IPPAT",
+    "email": "fvsefira@gmail.com",
+    "phone": "0811435661",
+    "jabatan": "Anggota Luar Biasa (ALB) IPPAT",
+    "daerahKerja": "Anggota Luar Biasa (ALB) IPPAT",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1099",
+    "barcode": "EVT-1099",
+    "name": "Lisa Purnamawati Nento, SH",
+    "institution": "PPAT - Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "email": "afifamhrani9@gmail.com",
+    "phone": "08124435797",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten/Kota lainnya diluar Prov. Sulut",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  },
+  {
+    "id": "EVT-1100",
+    "barcode": "EVT-1100",
+    "name": "Linda Sari Afni, S.H., M.Kn.",
+    "institution": "PPAT - Kabupaten Minahasa Utara",
+    "email": "lindasariafniparapat@gmail.com",
+    "phone": "081380385656",
+    "jabatan": "PPAT",
+    "daerahKerja": "Kabupaten Minahasa Utara",
+    "attendance": {
+      "registrasi_awal": null,
+      "sesi_1": null,
+      "sesi_2": null,
+      "sesi_3": null,
+      "sertifikat": null
+    },
+    "createdAt": "2026-10-29T06:13:46.132555+00:00"
+  }
+]
