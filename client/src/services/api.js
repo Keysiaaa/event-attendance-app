@@ -78,6 +78,62 @@ export function resetParticipantsToDefault() {
   return initialParticipants;
 }
 
+// Helper: Export sync file to share between committee members
+export function exportSyncData() {
+  const participants = getLocalParticipants();
+  const dataStr = JSON.stringify(participants, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `sync_absensi_event_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Helper: Merge attendance data from another committee member
+export function importAndMergeSyncData(incomingList) {
+  if (!Array.isArray(incomingList)) {
+    throw new Error('Format file sinkronisasi tidak valid.');
+  }
+
+  const currentList = getLocalParticipants();
+  const map = new Map();
+  currentList.forEach((p) => map.set(p.barcode || p.id, { ...p }));
+
+  let updatedCount = 0;
+
+  incomingList.forEach((incoming) => {
+    const key = incoming.barcode || incoming.id;
+    if (map.has(key)) {
+      const existing = map.get(key);
+      const mergedAttendance = { ...(existing.attendance || {}) };
+
+      Object.keys(incoming.attendance || {}).forEach((sessionId) => {
+        const inSession = incoming.attendance[sessionId];
+        if (inSession && inSession.status) {
+          // If incoming has hadir and existing does not, or if existing is null, merge
+          if (!mergedAttendance[sessionId] || inSession.status === 'hadir') {
+            mergedAttendance[sessionId] = inSession;
+            updatedCount++;
+          }
+        }
+      });
+
+      existing.attendance = mergedAttendance;
+      map.set(key, existing);
+    } else {
+      map.set(key, incoming);
+      updatedCount++;
+    }
+  });
+
+  const merged = Array.from(map.values());
+  saveLocalParticipants(merged);
+  return { merged, updatedCount };
+}
+
 // 1. Fetch all participants
 export async function fetchParticipants() {
   if (!isStaticDeploy) {

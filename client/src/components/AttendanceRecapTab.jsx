@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   FileSpreadsheet, 
   Download, 
@@ -9,9 +9,19 @@ import {
   Users, 
   CheckCircle2, 
   Clock, 
-  AlertCircle 
+  AlertCircle,
+  Share2,
+  Upload,
+  RefreshCw,
+  ShieldCheck
 } from 'lucide-react';
-import { recordAttendance as apiRecordAttendance, exportAttendanceCsv } from '../services/api';
+import { 
+  recordAttendance as apiRecordAttendance, 
+  exportAttendanceCsv,
+  exportSyncData,
+  importAndMergeSyncData,
+  AUTHORIZED_COMMITTEE
+} from '../services/api';
 
 export default function AttendanceRecapTab({ 
   participants = [], 
@@ -21,6 +31,8 @@ export default function AttendanceRecapTab({
 }) {
   const [search, setSearch] = useState('');
   const [sessionFilter, setSessionFilter] = useState('all');
+  const [syncStatus, setSyncStatus] = useState(null);
+  const fileInputRef = useRef(null);
 
   const SESSIONS = [
     { id: 'registrasi_awal', name: 'Registrasi awal dan Suvenir', short: 'Registrasi & Suvenir' },
@@ -46,6 +58,62 @@ export default function AttendanceRecapTab({
       rate: rate
     };
   });
+
+  // Unique participants who attended at least one session
+  const uniquePresentCount = participants.filter((p) =>
+    Object.values(p.attendance || {}).some((att) => att && att.status === 'hadir')
+  ).length;
+
+  // Breakdown scans recorded by each committee email
+  const committeeScans = {};
+  AUTHORIZED_COMMITTEE.forEach((email) => {
+    committeeScans[email.toLowerCase()] = 0;
+  });
+
+  participants.forEach((p) => {
+    Object.values(p.attendance || {}).forEach((att) => {
+      if (att && att.status === 'hadir' && att.markedBy) {
+        const em = att.markedBy.toLowerCase();
+        committeeScans[em] = (committeeScans[em] || 0) + 1;
+      }
+    });
+  });
+
+  const handleExportSync = () => {
+    exportSyncData();
+    setSyncStatus({
+      type: 'success',
+      text: 'File data absensi berhasil diunduh. Kirim file ini ke panitia lain via WhatsApp agar rekap mereka otomatis terupdate!'
+    });
+    setTimeout(() => setSyncStatus(null), 6000);
+  };
+
+  const handleImportSync = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target.result);
+        const { merged, updatedCount } = importAndMergeSyncData(json);
+        setSyncStatus({
+          type: 'success',
+          text: `Berhasil menggabungkan ${updatedCount} data kehadiran dari panitia lain!`
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1200);
+      } catch (err) {
+        setSyncStatus({
+          type: 'error',
+          text: 'Gagal membaca file: format file tidak sesuai.'
+        });
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
 
   const filteredParticipants = participants.filter((p) => {
     const q = search.toLowerCase();
@@ -104,13 +172,74 @@ export default function AttendanceRecapTab({
             </p>
           </div>
 
-          <button
-            onClick={handleDownloadCsv}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-2 self-start md:self-auto"
-          >
-            <Download className="w-4 h-4" />
-            <span>Unduh Rekap Excel (CSV)</span>
-          </button>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+            <button
+              onClick={handleDownloadCsv}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              <span>Unduh Rekap CSV</span>
+            </button>
+
+            <button
+              onClick={handleExportSync}
+              title="Unduh file data untuk dikirim ke panitia lain"
+              className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Bagikan Data (Sync)</span>
+            </button>
+
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              title="Gabungkan file data yang dikirim oleh panitia lain"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 px-3.5 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2"
+            >
+              <Upload className="w-4 h-4 text-slate-600" />
+              <span>+ Gabungkan Rekap Panitia Lain</span>
+            </button>
+
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImportSync}
+              accept=".json"
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        {/* Sync Status Banner */}
+        {syncStatus && (
+          <div className={`mt-4 p-3.5 rounded-2xl text-xs font-medium flex items-center gap-2.5 ${
+            syncStatus.type === 'success' 
+              ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' 
+              : 'bg-red-50 border border-red-200 text-red-800'
+          }`}>
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{syncStatus.text}</span>
+          </div>
+        )}
+
+        {/* Highlight Combined Attendance Stats */}
+        <div className="mt-6 p-4 bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs text-indigo-900 font-bold uppercase tracking-wider">
+                Rekap Gabungan Semua Panitia
+              </div>
+              <div className="text-sm font-semibold text-slate-800">
+                <span className="text-indigo-600 font-bold text-base">{uniquePresentCount}</span> dari <span className="font-bold">{participants.length}</span> peserta telah hadir ({participants.length > 0 ? Math.round((uniquePresentCount / participants.length) * 100) : 0}%)
+              </div>
+            </div>
+          </div>
+          <div className="text-xs text-slate-500 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-xl border border-indigo-100/60 self-start sm:self-auto">
+            Semua panitia terdaftar dapat mencatat & melihat angka gabungan ini
+          </div>
         </div>
 
         {/* 5 Session Stats Cards */}
@@ -136,6 +265,37 @@ export default function AttendanceRecapTab({
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Committee Activity Breakdown */}
+        <div className="mt-5 pt-4 border-t border-slate-100">
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
+            <span>Rekap Kontribusi Pencatatan Seluruh Panitia:</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {AUTHORIZED_COMMITTEE.map((email) => {
+              const count = committeeScans[email.toLowerCase()] || 0;
+              const isMe = committee && committee.toLowerCase() === email.toLowerCase();
+              return (
+                <div
+                  key={email}
+                  className={`text-xs px-3 py-1.5 rounded-xl border flex items-center gap-2 ${
+                    isMe
+                      ? 'bg-indigo-50 border-indigo-200 text-indigo-900 font-semibold'
+                      : 'bg-slate-50 border-slate-200 text-slate-700'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="truncate max-w-[170px]">{email}</span>
+                  <span className="bg-white px-2 py-0.5 rounded-md font-mono text-[11px] text-slate-900 font-bold border border-slate-200/60 shadow-xs">
+                    {count} presensi
+                  </span>
+                  {isMe && <span className="text-[10px] text-indigo-600 font-bold">(Anda)</span>}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
