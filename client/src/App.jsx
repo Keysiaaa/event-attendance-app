@@ -6,14 +6,14 @@ import AttendanceRecapTab from './components/AttendanceRecapTab';
 import CommitteeLoginModal from './components/CommitteeLoginModal';
 import AddParticipantModal from './components/AddParticipantModal';
 import BatchImportModal from './components/BatchImportModal';
-import FirebaseConfigModal from './components/FirebaseConfigModal';
+import CloudSyncModal from './components/CloudSyncModal';
 import PrintAllBadges from './components/PrintAllBadges';
 import { CheckCircle2 } from 'lucide-react';
 import {
   fetchParticipants as loadParticipants,
   deleteParticipant as removeParticipant,
   subscribeToParticipants,
-  isFirebaseConfigured
+  isSupabaseConfigured
 } from './services/api';
 
 export default function App() {
@@ -28,12 +28,12 @@ export default function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
-  const [isFirebaseModalOpen, setIsFirebaseModalOpen] = useState(false);
+  const [isCloudModalOpen, setIsCloudModalOpen] = useState(false);
   const [isPrintAllOpen, setIsPrintAllOpen] = useState(false);
   const [notification, setNotification] = useState(null);
-  const [isFirebaseActive, setIsFirebaseActive] = useState(() => isFirebaseConfigured());
+  const isCloudActive = isSupabaseConfigured();
 
-  // Subscribe to real-time participant updates across all committee devices
+  // Real-time synchronization across all committee devices
   useEffect(() => {
     const unsubscribe = subscribeToParticipants((updatedParticipants) => {
       if (Array.isArray(updatedParticipants)) {
@@ -88,7 +88,7 @@ export default function App() {
   };
 
   const handleParticipantAdded = (newParticipant) => {
-    setParticipants((prev) => [newParticipant, ...prev.filter(p => p.id !== newParticipant.id)]);
+    setParticipants((prev) => [newParticipant, ...prev.filter((p) => p.id !== newParticipant.id)]);
     setActiveTab('generator');
     setNotification({
       type: 'success',
@@ -120,8 +120,8 @@ export default function App() {
           onLogout={handleLogout}
           totalParticipants={participants.length}
           onOpenAddModal={() => setIsAddModalOpen(true)}
-          isFirebaseActive={isFirebaseActive}
-          onOpenFirebaseModal={() => setIsFirebaseModalOpen(true)}
+          isCloudActive={isCloudActive}
+          onOpenCloudModal={() => setIsCloudModalOpen(true)}
         />
 
         {notification && (
@@ -188,10 +188,10 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setIsFirebaseModalOpen(true)}
-              className="text-xs text-slate-500 hover:text-indigo-600 underline transition"
+              onClick={() => setIsCloudModalOpen(true)}
+              className="text-xs text-emerald-700 hover:underline transition font-medium"
             >
-              {isFirebaseActive ? 'Status Database: Cloud Live Sync Aktif' : 'Status: Database Lokal (Klik untuk aktifkan Firebase)'}
+              Status Database: Supabase Real-time Cloud Aktif 🟢
             </button>
           </div>
         </div>
@@ -216,10 +216,9 @@ export default function App() {
         onBatchAdded={loadParticipants}
       />
 
-      <FirebaseConfigModal
-        isOpen={isFirebaseModalOpen}
-        onClose={() => setIsFirebaseModalOpen(false)}
-        onConfigSaved={(config) => setIsFirebaseActive(Boolean(config && config.projectId))}
+      <CloudSyncModal
+        isOpen={isCloudModalOpen}
+        onClose={() => setIsCloudModalOpen(false)}
       />
     </div>
   );

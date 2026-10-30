@@ -1,20 +1,6 @@
 import initialParticipants from '../data/initialParticipants.json';
-import {
-  getDb,
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  onSnapshot,
-  writeBatch
-} from './firebase';
-import {
-  isFirebaseConfigured,
-  getActiveFirebaseConfig,
-  saveActiveFirebaseConfig
-} from './firebaseConfig';
+import { getSupabase } from './supabase';
+import { isSupabaseConfigured } from './supabaseConfig';
 
 const STORAGE_KEY = 'event_attendance_participants_v1';
 
@@ -35,7 +21,7 @@ export const SESSIONS = [
   { id: 'sertifikat', name: 'Penerimaan sertifikat', order: 5 }
 ];
 
-export { isFirebaseConfigured, getActiveFirebaseConfig, saveActiveFirebaseConfig };
+export { isSupabaseConfigured };
 
 // Helper: Get local data from localStorage or fallback to initial JSON
 export function getLocalParticipants() {
@@ -142,115 +128,97 @@ export function importAndMergeSyncData(incomingList) {
   const merged = Array.from(map.values());
   saveLocalParticipants(merged);
 
-  const db = getDb();
-  if (db) {
-    try {
-      const batch = writeBatch(db);
-      merged.forEach((p) => {
-        batch.set(doc(db, 'participants', p.id || p.barcode), p, { merge: true });
-      });
-      batch.commit().catch(console.error);
-    } catch (e) {
-      console.error(e);
-    }
+  const supabase = getSupabase();
+  if (supabase) {
+    supabase.from('participants').upsert(merged, { onConflict: 'id' }).then();
   }
 
   return { merged, updatedCount };
 }
 
-// Helper: Sinkronisasi data awal ke Firebase Firestore jika database masih kosong
-export async function syncInitialDataToFirebase() {
-  const db = getDb();
-  if (!db) return false;
+// Helper: Sinkronisasi data awal ke Supabase jika database masih kosong
+export async function syncInitialDataToCloud() {
+  const supabase = getSupabase();
+  if (!supabase) return false;
 
   try {
     const currentList = getLocalParticipants();
-    const batch = writeBatch(db);
-    currentList.forEach((p) => {
-      const docId = p.id || p.barcode;
-      const ref = doc(db, 'participants', docId);
-      batch.set(ref, p, { merge: true });
-    });
-    await batch.commit();
+    const { error } = await supabase.from('participants').upsert(currentList, { onConflict: 'id' });
+    if (error) {
+      console.error('Error saat sinkronisasi data ke Supabase:', error);
+      return false;
+    }
     return true;
   } catch (e) {
-    console.error('Gagal sinkronisasi data awal ke Firebase:', e);
+    console.error('Gagal sinkronisasi data ke Supabase:', e);
     return false;
   }
 }
 
-// REALTIME LISTENER: Berlangganan data peserta secara real-time antar semua panitia!
+// REALTIME LISTENER: Berlangganan data peserta secara real-time antar semua panitia via Supabase WebSocket
 export function subscribeToParticipants(onUpdate, onError) {
-  const db = getDb();
-  if (!db) {
-    // Jika Firebase belum aktif, kirim data lokal sekali
+  const supabase = getSupabase();
+  if (!supabase) {
     onUpdate(getLocalParticipants());
     return () => {};
   }
 
+  // Fetch awal
+  fetchParticipants().then((data) => {
+    onUpdate(data);
+  });
+
   try {
-    const colRef = collection(db, 'participants');
-    const unsubscribe = onSnapshot(
-      colRef,
-      async (snapshot) => {
-        if (snapshot.empty) {
-          // Jika di Firestore masih kosong, auto-upload 100 peserta awal
-          await syncInitialDataToFirebase();
-          onUpdate(getLocalParticipants());
-          return;
+    // Dengarkan seluruh perubahan (INSERT, UPDATE, DELETE) pada tabel participants
+    const channel = supabase
+      .channel('realtime:participants')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'participants' },
+        async () => {
+          const fresh = await fetchParticipants();
+          onUpdate(fresh);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  } catch (err) {
+    console.error('Error setting up Supabase subscription:', err);
+    onUpdate(getLocalParticipants());
+    return () => {};
+  }
+}
+
+// 1. Fetch all participants dari Supabase
+export async function fetchParticipants() {
+  const supabase = getSupabase();
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('participants')
+        .select('*');
+
+      if (!error && Array.isArray(data)) {
+        if (data.length === 0) {
+          // Jika di cloud masih kosong, auto-upload data lokal awal
+          await syncInitialDataToCloud();
+          return getLocalParticipants();
         }
 
-        const list = [];
-        snapshot.forEach((docSnap) => {
-          list.push({ id: docSnap.id, ...docSnap.data() });
-        });
-
-        // Urutkan berdasarkan barcode atau waktu buat
-        list.sort((a, b) => {
+        data.sort((a, b) => {
           const numA = parseInt((a.barcode || a.id || '').replace(/\D/g, '') || '0', 10);
           const numB = parseInt((b.barcode || b.id || '').replace(/\D/g, '') || '0', 10);
           return numA - numB;
         });
 
-        saveLocalParticipants(list);
-        onUpdate(list);
-      },
-      (error) => {
-        console.error('Firebase snapshot listener error:', error);
-        if (onError) onError(error);
-        onUpdate(getLocalParticipants());
+        saveLocalParticipants(data);
+        return data;
       }
-    );
-
-    return unsubscribe;
-  } catch (err) {
-    console.error('Error setting up Firebase subscription:', err);
-    onUpdate(getLocalParticipants());
-    return () => {};
-  }
-}
-
-// 1. Fetch all participants
-export async function fetchParticipants() {
-  const db = getDb();
-  if (db) {
-    try {
-      const snap = await getDocs(collection(db, 'participants'));
-      if (snap.empty) {
-        await syncInitialDataToFirebase();
-        return getLocalParticipants();
-      }
-      const list = [];
-      snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
-      list.sort((a, b) => {
-        const numA = parseInt((a.barcode || a.id || '').replace(/\D/g, '') || '0', 10);
-        const numB = parseInt((b.barcode || b.id || '').replace(/\D/g, '') || '0', 10);
-        return numA - numB;
-      });
-      saveLocalParticipants(list);
-      return list;
     } catch (err) {
-      console.warn('Gagal fetch dari Firebase, fallback ke lokal:', err);
+      console.warn('Gagal fetch dari Supabase, fallback ke lokal:', err);
     }
   }
   return getLocalParticipants();
@@ -344,17 +312,17 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
   participants[index].attendance[sessionId] = sessionData;
   saveLocalParticipants(participants);
 
-  // Simpan ke Firebase Cloud Firestore jika aktif
-  const db = getDb();
-  if (db) {
+  // Simpan ke Supabase Cloud Database secara real-time
+  const supabase = getSupabase();
+  if (supabase) {
     try {
       const docId = participants[index].id || participants[index].barcode;
-      const ref = doc(db, 'participants', docId);
-      await updateDoc(ref, {
-        [`attendance.${sessionId}`]: sessionData
-      });
+      await supabase
+        .from('participants')
+        .update({ attendance: participants[index].attendance })
+        .eq('id', docId);
     } catch (err) {
-      console.error('Error saat menyimpan absensi ke Firebase:', err);
+      console.error('Error saat menyimpan absensi ke Supabase:', err);
     }
   }
 
@@ -418,21 +386,20 @@ export async function addParticipant(data) {
       sesi_3: null,
       sertifikat: null
     },
-    createdAt: new Date().toISOString(),
-    isNew: true
+    created_at: new Date().toISOString(),
+    is_new: true
   };
 
   participants.unshift(newParticipant);
   saveLocalParticipants(participants);
 
-  // Simpan ke Firebase Cloud Firestore jika aktif
-  const db = getDb();
-  if (db) {
+  // Simpan ke Supabase Cloud Database secara real-time
+  const supabase = getSupabase();
+  if (supabase) {
     try {
-      const ref = doc(db, 'participants', newBarcode);
-      await setDoc(ref, newParticipant);
+      await supabase.from('participants').insert([newParticipant]);
     } catch (err) {
-      console.error('Error saat menambah peserta ke Firebase:', err);
+      console.error('Error saat menambah peserta ke Supabase:', err);
     }
   }
 
@@ -481,8 +448,8 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
         sesi_3: null,
         sertifikat: null
       },
-      createdAt: new Date().toISOString(),
-      isNew: true
+      created_at: new Date().toISOString(),
+      is_new: true
     };
     participants.unshift(newP);
     addedList.push(newP);
@@ -490,17 +457,13 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
 
   saveLocalParticipants(participants);
 
-  // Batch insert ke Firebase
-  const db = getDb();
-  if (db && addedList.length > 0) {
+  // Batch insert ke Supabase
+  const supabase = getSupabase();
+  if (supabase && addedList.length > 0) {
     try {
-      const batch = writeBatch(db);
-      addedList.forEach((p) => {
-        batch.set(doc(db, 'participants', p.id), p);
-      });
-      await batch.commit();
+      await supabase.from('participants').insert(addedList);
     } catch (err) {
-      console.error('Error batch import ke Firebase:', err);
+      console.error('Error batch import ke Supabase:', err);
     }
   }
 
@@ -517,12 +480,12 @@ export async function deleteParticipant(id) {
   const filtered = participants.filter((p) => p.id !== id && p.barcode !== id);
   saveLocalParticipants(filtered);
 
-  const db = getDb();
-  if (db) {
+  const supabase = getSupabase();
+  if (supabase) {
     try {
-      await deleteDoc(doc(db, 'participants', id));
+      await supabase.from('participants').delete().eq('id', id);
     } catch (err) {
-      console.error('Error saat menghapus peserta dari Firebase:', err);
+      console.error('Error saat menghapus peserta dari Supabase:', err);
     }
   }
   return { success: true };
