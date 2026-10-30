@@ -130,7 +130,7 @@ export function importAndMergeSyncData(incomingList) {
 
   const supabase = getSupabase();
   if (supabase) {
-    supabase.from('participants').upsert(merged, { onConflict: 'id' }).then();
+    supabase.from('participants').upsert(merged.map(normalizeParticipant), { onConflict: 'id' }).then();
   }
 
   return { merged, updatedCount };
@@ -340,9 +340,24 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
   if (supabase) {
     try {
       const docId = participants[index].id || participants[index].barcode;
+      // Ambil attendance terbaru dari cloud agar sesi lain yang dicatat panitia lain tetap terjaga
+      const { data: remoteRow } = await supabase
+        .from('participants')
+        .select('attendance')
+        .eq('id', docId)
+        .maybeSingle();
+
+      const mergedAttendance = {
+        ...(remoteRow?.attendance || {}),
+        [sessionId]: sessionData
+      };
+
+      participants[index].attendance = mergedAttendance;
+      saveLocalParticipants(participants);
+
       await supabase
         .from('participants')
-        .update({ attendance: participants[index].attendance })
+        .update({ attendance: mergedAttendance })
         .eq('id', docId);
     } catch (err) {
       console.error('Error saat menyimpan absensi ke Supabase:', err);
