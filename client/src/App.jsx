@@ -6,9 +6,15 @@ import AttendanceRecapTab from './components/AttendanceRecapTab';
 import CommitteeLoginModal from './components/CommitteeLoginModal';
 import AddParticipantModal from './components/AddParticipantModal';
 import BatchImportModal from './components/BatchImportModal';
+import FirebaseConfigModal from './components/FirebaseConfigModal';
 import PrintAllBadges from './components/PrintAllBadges';
 import { CheckCircle2 } from 'lucide-react';
-import { fetchParticipants as loadParticipants, deleteParticipant as removeParticipant } from './services/api';
+import {
+  fetchParticipants as loadParticipants,
+  deleteParticipant as removeParticipant,
+  subscribeToParticipants,
+  isFirebaseConfigured
+} from './services/api';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('generator'); // 'generator' | 'scanner' | 'rekap'
@@ -22,30 +28,30 @@ export default function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
+  const [isFirebaseModalOpen, setIsFirebaseModalOpen] = useState(false);
   const [isPrintAllOpen, setIsPrintAllOpen] = useState(false);
   const [notification, setNotification] = useState(null);
+  const [isFirebaseActive, setIsFirebaseActive] = useState(() => isFirebaseConfigured());
 
-  // Fetch participants
-  const fetchParticipants = async () => {
-    try {
-      const data = await loadParticipants();
-      if (Array.isArray(data)) {
-        setParticipants(data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch participants:', err);
-    }
-  };
-
+  // Subscribe to real-time participant updates across all committee devices
   useEffect(() => {
-    fetchParticipants();
+    const unsubscribe = subscribeToParticipants((updatedParticipants) => {
+      if (Array.isArray(updatedParticipants)) {
+        setParticipants(updatedParticipants);
+      }
+    });
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, []);
 
   // Handle Login Success
   const handleLoginSuccess = (email) => {
     setCommittee(email);
     localStorage.setItem('committee_email', email);
-    // If on scanner tab, automatically stay there; otherwise switch to scanner
     setActiveTab('scanner');
   };
 
@@ -69,7 +75,6 @@ export default function App() {
   // Handle Quick Scan from Generator Card
   const handleQuickScan = (code) => {
     setActiveTab('scanner');
-    // If not logged in as committee, prompt login
     if (!committee) {
       setIsLoginModalOpen(true);
     }
@@ -83,11 +88,11 @@ export default function App() {
   };
 
   const handleParticipantAdded = (newParticipant) => {
-    setParticipants((prev) => [newParticipant, ...prev]);
+    setParticipants((prev) => [newParticipant, ...prev.filter(p => p.id !== newParticipant.id)]);
     setActiveTab('generator');
     setNotification({
       type: 'success',
-      message: `Peserta "${newParticipant.name}" (${newParticipant.barcode}) berhasil ditambahkan dan berada di urutan paling atas!`
+      message: `Peserta "${newParticipant.name}" (${newParticipant.barcode}) berhasil ditambahkan dan disinkronkan ke seluruh panitia!`
     });
     setTimeout(() => {
       setNotification(null);
@@ -115,6 +120,8 @@ export default function App() {
           onLogout={handleLogout}
           totalParticipants={participants.length}
           onOpenAddModal={() => setIsAddModalOpen(true)}
+          isFirebaseActive={isFirebaseActive}
+          onOpenFirebaseModal={() => setIsFirebaseModalOpen(true)}
         />
 
         {notification && (
@@ -172,11 +179,21 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400 no-print">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="font-medium text-slate-600">Sistem Presensi Event Digital</p>
-          <p className="mt-1">
-            Mendukung Scan Barcode 1D (Code128), QR Code 2D, Kamera HP / Laptop, dan Barcode Scanner Gun.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div>
+            <p className="font-medium text-slate-600">Sistem Presensi Event Digital</p>
+            <p className="mt-1">
+              Mendukung Scan Barcode 1D (Code128), QR Code 2D, Kamera HP / Laptop, dan Barcode Scanner Gun.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsFirebaseModalOpen(true)}
+              className="text-xs text-slate-500 hover:text-indigo-600 underline transition"
+            >
+              {isFirebaseActive ? 'Status Database: Cloud Live Sync Aktif' : 'Status: Database Lokal (Klik untuk aktifkan Firebase)'}
+            </button>
+          </div>
         </div>
       </footer>
 
@@ -196,7 +213,13 @@ export default function App() {
       <BatchImportModal
         isOpen={isBatchModalOpen}
         onClose={() => setIsBatchModalOpen(false)}
-        onBatchAdded={fetchParticipants}
+        onBatchAdded={loadParticipants}
+      />
+
+      <FirebaseConfigModal
+        isOpen={isFirebaseModalOpen}
+        onClose={() => setIsFirebaseModalOpen(false)}
+        onConfigSaved={(config) => setIsFirebaseActive(Boolean(config && config.projectId))}
       />
     </div>
   );

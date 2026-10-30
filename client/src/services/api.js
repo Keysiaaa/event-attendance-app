@@ -1,4 +1,20 @@
 import initialParticipants from '../data/initialParticipants.json';
+import {
+  getDb,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  writeBatch
+} from './firebase';
+import {
+  isFirebaseConfigured,
+  getActiveFirebaseConfig,
+  saveActiveFirebaseConfig
+} from './firebaseConfig';
 
 const STORAGE_KEY = 'event_attendance_participants_v1';
 
@@ -19,12 +35,7 @@ export const SESSIONS = [
   { id: 'sertifikat', name: 'Penerimaan sertifikat', order: 5 }
 ];
 
-// Determine if we should skip backend network calls (e.g. GitHub Pages or Vercel static)
-const isStaticDeploy = typeof window !== 'undefined' && (
-  window.location.hostname.includes('github.io') ||
-  window.location.hostname.includes('vercel.app') ||
-  (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
-);
+export { isFirebaseConfigured, getActiveFirebaseConfig, saveActiveFirebaseConfig };
 
 // Helper: Get local data from localStorage or fallback to initial JSON
 export function getLocalParticipants() {
@@ -113,7 +124,6 @@ export function importAndMergeSyncData(incomingList) {
       Object.keys(incoming.attendance || {}).forEach((sessionId) => {
         const inSession = incoming.attendance[sessionId];
         if (inSession && inSession.status) {
-          // If incoming has hadir and existing does not, or if existing is null, merge
           if (!mergedAttendance[sessionId] || inSession.status === 'hadir') {
             mergedAttendance[sessionId] = inSession;
             updatedCount++;
@@ -131,22 +141,117 @@ export function importAndMergeSyncData(incomingList) {
 
   const merged = Array.from(map.values());
   saveLocalParticipants(merged);
+
+  const db = getDb();
+  if (db) {
+    try {
+      const batch = writeBatch(db);
+      merged.forEach((p) => {
+        batch.set(doc(db, 'participants', p.id || p.barcode), p, { merge: true });
+      });
+      batch.commit().catch(console.error);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return { merged, updatedCount };
+}
+
+// Helper: Sinkronisasi data awal ke Firebase Firestore jika database masih kosong
+export async function syncInitialDataToFirebase() {
+  const db = getDb();
+  if (!db) return false;
+
+  try {
+    const currentList = getLocalParticipants();
+    const batch = writeBatch(db);
+    currentList.forEach((p) => {
+      const docId = p.id || p.barcode;
+      const ref = doc(db, 'participants', docId);
+      batch.set(ref, p, { merge: true });
+    });
+    await batch.commit();
+    return true;
+  } catch (e) {
+    console.error('Gagal sinkronisasi data awal ke Firebase:', e);
+    return false;
+  }
+}
+
+// REALTIME LISTENER: Berlangganan data peserta secara real-time antar semua panitia!
+export function subscribeToParticipants(onUpdate, onError) {
+  const db = getDb();
+  if (!db) {
+    // Jika Firebase belum aktif, kirim data lokal sekali
+    onUpdate(getLocalParticipants());
+    return () => {};
+  }
+
+  try {
+    const colRef = collection(db, 'participants');
+    const unsubscribe = onSnapshot(
+      colRef,
+      async (snapshot) => {
+        if (snapshot.empty) {
+          // Jika di Firestore masih kosong, auto-upload 100 peserta awal
+          await syncInitialDataToFirebase();
+          onUpdate(getLocalParticipants());
+          return;
+        }
+
+        const list = [];
+        snapshot.forEach((docSnap) => {
+          list.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        // Urutkan berdasarkan barcode atau waktu buat
+        list.sort((a, b) => {
+          const numA = parseInt((a.barcode || a.id || '').replace(/\D/g, '') || '0', 10);
+          const numB = parseInt((b.barcode || b.id || '').replace(/\D/g, '') || '0', 10);
+          return numA - numB;
+        });
+
+        saveLocalParticipants(list);
+        onUpdate(list);
+      },
+      (error) => {
+        console.error('Firebase snapshot listener error:', error);
+        if (onError) onError(error);
+        onUpdate(getLocalParticipants());
+      }
+    );
+
+    return unsubscribe;
+  } catch (err) {
+    console.error('Error setting up Firebase subscription:', err);
+    onUpdate(getLocalParticipants());
+    return () => {};
+  }
 }
 
 // 1. Fetch all participants
 export async function fetchParticipants() {
-  if (!isStaticDeploy) {
+  const db = getDb();
+  if (db) {
     try {
-      const res = await fetch('/api/participants');
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          saveLocalParticipants(data);
-          return data;
-        }
+      const snap = await getDocs(collection(db, 'participants'));
+      if (snap.empty) {
+        await syncInitialDataToFirebase();
+        return getLocalParticipants();
       }
-    } catch (err) {}
+      const list = [];
+      snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
+      list.sort((a, b) => {
+        const numA = parseInt((a.barcode || a.id || '').replace(/\D/g, '') || '0', 10);
+        const numB = parseInt((b.barcode || b.id || '').replace(/\D/g, '') || '0', 10);
+        return numA - numB;
+      });
+      saveLocalParticipants(list);
+      return list;
+    } catch (err) {
+      console.warn('Gagal fetch dari Firebase, fallback ke lokal:', err);
+    }
   }
   return getLocalParticipants();
 }
@@ -156,19 +261,6 @@ export async function lookupParticipant(code) {
   const cleanCode = (code || '').trim().toLowerCase();
   if (!cleanCode) return { success: false, message: 'Kode barcode tidak boleh kosong.' };
 
-  if (!isStaticDeploy) {
-    try {
-      const res = await fetch(`/api/participants/lookup/${encodeURIComponent(cleanCode)}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success && data.participant) {
-          return data;
-        }
-      }
-    } catch (err) {}
-  }
-
-  // Lookup in local data
   const participants = getLocalParticipants();
   const found = participants.find(
     (p) =>
@@ -193,21 +285,6 @@ export async function verifyCommittee(email) {
     return { success: false, message: 'Harap masukkan email Anda.' };
   }
 
-  if (!isStaticDeploy) {
-    try {
-      const res = await fetch('/api/auth/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: cleanEmail })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success) return data;
-      }
-    } catch (err) {}
-  }
-
-  // Fallback local verification
   const isAuth = AUTHORIZED_COMMITTEE.map((e) => e.toLowerCase()).includes(cleanEmail);
   if (isAuth) {
     return {
@@ -230,29 +307,6 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
     return { success: false, message: 'Email panitia wajib disertakan.' };
   }
 
-  if (!isStaticDeploy) {
-    try {
-      const res = await fetch('/api/attendance', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-committee-email': committeeEmail
-        },
-        body: JSON.stringify({ barcode, sessionId, status, committeeEmail })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success && data.participant) {
-          const list = getLocalParticipants();
-          const updated = list.map((p) => (p.id === data.participant.id ? data.participant : p));
-          saveLocalParticipants(updated);
-          return data;
-        }
-      }
-    } catch (err) {}
-  }
-
-  // Local record attendance
   const participants = getLocalParticipants();
   const cleanBarcode = (barcode || '').trim().toLowerCase();
   const index = participants.findIndex(
@@ -280,22 +334,33 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
     };
   }
 
-  if (status === null) {
-    participants[index].attendance[sessionId] = null;
-  } else {
-    participants[index].attendance[sessionId] = {
-      status: status, // 'hadir' | 'tidak_hadir'
-      timestamp: new Date().toISOString(),
-      markedBy: committeeEmail,
-      sessionName: validSession.name
-    };
-  }
+  const sessionData = status === null ? null : {
+    status: status, // 'hadir' | 'tidak_hadir'
+    timestamp: new Date().toISOString(),
+    markedBy: committeeEmail,
+    sessionName: validSession.name
+  };
 
+  participants[index].attendance[sessionId] = sessionData;
   saveLocalParticipants(participants);
+
+  // Simpan ke Firebase Cloud Firestore jika aktif
+  const db = getDb();
+  if (db) {
+    try {
+      const docId = participants[index].id || participants[index].barcode;
+      const ref = doc(db, 'participants', docId);
+      await updateDoc(ref, {
+        [`attendance.${sessionId}`]: sessionData
+      });
+    } catch (err) {
+      console.error('Error saat menyimpan absensi ke Firebase:', err);
+    }
+  }
 
   return {
     success: true,
-    message: `Absensi [${validSession.name}] untuk ${participants[index].name} berhasil dicatat sebagai "${status === 'hadir' ? 'Hadir' : 'Tidak Hadir'}".`,
+    message: `Absensi [${validSession.name}] untuk ${participants[index].name} berhasil dicatat sebagai "${status === 'hadir' ? 'Hadir' : (status === 'tidak_hadir' ? 'Tidak Hadir' : 'Dibatalkan')}".`,
     participant: participants[index]
   };
 }
@@ -311,7 +376,6 @@ export async function addParticipant(data) {
   let newBarcode = (customBarcode || '').trim();
 
   if (!newBarcode) {
-    // Find the highest number in existing barcodes
     let maxNum = 1000;
     participants.forEach((p) => {
       const match = (p.barcode || p.id || '').match(/(\d+)/);
@@ -332,7 +396,6 @@ export async function addParticipant(data) {
     }
     newBarcode = `EVT-${candidate}`;
   } else {
-    // Check if custom barcode already exists
     if (participants.some((p) => 
       (p.barcode && p.barcode.toLowerCase() === newBarcode.toLowerCase()) ||
       (p.id && p.id.toLowerCase() === newBarcode.toLowerCase())
@@ -359,16 +422,18 @@ export async function addParticipant(data) {
     isNew: true
   };
 
-  // Add at the beginning so user sees it right away!
   participants.unshift(newParticipant);
   saveLocalParticipants(participants);
 
-  if (!isStaticDeploy) {
-    fetch('/api/participants', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).catch(() => {});
+  // Simpan ke Firebase Cloud Firestore jika aktif
+  const db = getDb();
+  if (db) {
+    try {
+      const ref = doc(db, 'participants', newBarcode);
+      await setDoc(ref, newParticipant);
+    } catch (err) {
+      console.error('Error saat menambah peserta ke Firebase:', err);
+    }
   }
 
   return {
@@ -425,12 +490,18 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
 
   saveLocalParticipants(participants);
 
-  if (!isStaticDeploy) {
-    fetch('/api/participants/batch', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ names, institutionDefault })
-    }).catch(() => {});
+  // Batch insert ke Firebase
+  const db = getDb();
+  if (db && addedList.length > 0) {
+    try {
+      const batch = writeBatch(db);
+      addedList.forEach((p) => {
+        batch.set(doc(db, 'participants', p.id), p);
+      });
+      await batch.commit();
+    } catch (err) {
+      console.error('Error batch import ke Firebase:', err);
+    }
   }
 
   return {
@@ -446,13 +517,18 @@ export async function deleteParticipant(id) {
   const filtered = participants.filter((p) => p.id !== id && p.barcode !== id);
   saveLocalParticipants(filtered);
 
-  if (!isStaticDeploy) {
-    fetch(`/api/participants/${id}`, { method: 'DELETE' }).catch(() => {});
+  const db = getDb();
+  if (db) {
+    try {
+      await deleteDoc(doc(db, 'participants', id));
+    } catch (err) {
+      console.error('Error saat menghapus peserta dari Firebase:', err);
+    }
   }
   return { success: true };
 }
 
-// 8. Export CSV Client-Side (Instant download, UTF-8 BOM Excel compatible)
+// 8. Export CSV
 export function exportAttendanceCsv(participantsList = null) {
   const participants = participantsList || getLocalParticipants();
   let csv = 'ID,Barcode,Nama Peserta,Institusi,Email,Telepon,Registrasi Awal dan Suvenir,Sesi 1,Sesi 2,Sesi 3,Penerimaan Sertifikat\n';

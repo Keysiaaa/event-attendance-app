@@ -1,5 +1,5 @@
 import React from 'react';
-import { QrCode, ScanLine, FileSpreadsheet, UserCheck, LogIn, LogOut, ShieldCheck, Users, UserPlus } from 'lucide-react';
+import { QrCode, ScanLine, FileSpreadsheet, UserCheck, LogIn, LogOut, ShieldCheck, Users, UserPlus, Cloud, CloudOff } from 'lucide-react';
 
 export default function Header({ 
   activeTab, 
@@ -8,7 +8,9 @@ export default function Header({
   onOpenLogin, 
   onLogout,
   totalParticipants,
-  onOpenAddModal
+  onOpenAddModal,
+  isFirebaseActive,
+  onOpenFirebaseModal
 }) {
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
@@ -80,7 +82,25 @@ export default function Header({
           </nav>
 
           {/* Actions & Committee Login State */}
-          <div className="flex items-center space-x-2.5">
+          <div className="flex items-center space-x-2">
+            {/* Cloud Sync Status Button */}
+            {onOpenFirebaseModal && (
+              <button
+                onClick={onOpenFirebaseModal}
+                title={isFirebaseActive ? "Database Cloud (Firebase) Terhubung & Live Sync Aktif" : "Klik untuk menghubungkan Firebase Cloud Database"}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition ${
+                  isFirebaseActive
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                    : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 animate-pulse'
+                }`}
+              >
+                <Cloud className={`w-3.5 h-3.5 ${isFirebaseActive ? 'text-emerald-600' : 'text-amber-600'}`} />
+                <span className="hidden sm:inline">
+                  {isFirebaseActive ? 'Cloud Sync Aktif' : 'Setup Cloud'}
+                </span>
+              </button>
+            )}
+
             {onOpenAddModal && (
               <button
                 onClick={onOpenAddModal}
@@ -90,11 +110,12 @@ export default function Header({
                 <span>+ Peserta</span>
               </button>
             )}
+
             {committee ? (
               <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <div className="text-left hidden sm:block">
-                  <div className="text-xs font-semibold text-emerald-900 truncate max-w-[160px]">
+                  <div className="text-xs font-semibold text-emerald-900 truncate max-w-[140px]">
                     {committee}
                   </div>
                   <div className="text-[10px] text-emerald-600 flex items-center gap-1">
