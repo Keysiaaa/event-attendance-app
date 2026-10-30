@@ -1,17 +1,12 @@
-// Konfigurasi Firebase Firestore
-// Panduan:
-// 1. Buka console.firebase.google.com
-// 2. Buat project baru (contoh: event-attendance-app)
-// 3. Masuk ke Project Settings (ikon gerigi) -> General -> Daftarkan Web App (ikon </>)
-// 4. Salin objek firebaseConfig yang diberikan oleh Firebase ke bawah ini:
-
+// Konfigurasi Firebase Firestore untuk Presensi Event
 export const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyDSjwGdKJkVRrPnFhUrDBKPdP1hYO5II_g",
+  authDomain: "presensi-event-8b1dd.firebaseapp.com",
+  projectId: "presensi-event-8b1dd",
+  storageBucket: "presensi-event-8b1dd.firebasestorage.app",
+  messagingSenderId: "1093099615680",
+  appId: "1:1093099615680:web:a1c047a3bdaca720f00425",
+  measurementId: "G-8LD7QGJREF"
 };
 
 // Cek apakah konfigurasi sudah valid
