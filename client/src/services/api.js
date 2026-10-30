@@ -12,7 +12,7 @@ export const AUTHORIZED_COMMITTEE = [
 ];
 
 export const SESSIONS = [
-  { id: 'registrasi_awal', name: 'Registrasi awal', order: 1 },
+  { id: 'registrasi_awal', name: 'Registrasi awal dan Suvenir', order: 1 },
   { id: 'sesi_1', name: 'Sesi 1', order: 2 },
   { id: 'sesi_2', name: 'Sesi 2', order: 3 },
   { id: 'sesi_3', name: 'Sesi 3', order: 4 },
@@ -23,16 +23,31 @@ export const SESSIONS = [
 export function getLocalParticipants() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
+    let participants = null;
     if (!raw) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialParticipants));
-      return initialParticipants;
+      participants = initialParticipants;
+    } else {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        participants = parsed;
+      } else {
+        participants = initialParticipants;
+      }
     }
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      return parsed;
+
+    // Auto migrate any legacy sessionName
+    let modified = false;
+    participants.forEach((p) => {
+      if (p.attendance?.registrasi_awal && p.attendance.registrasi_awal.sessionName === 'Registrasi awal') {
+        p.attendance.registrasi_awal.sessionName = 'Registrasi awal dan Suvenir';
+        modified = true;
+      }
+    });
+
+    if (modified || !raw) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(participants));
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialParticipants));
-    return initialParticipants;
+    return participants;
   } catch (e) {
     console.error('Error reading localStorage participants:', e);
     return initialParticipants;
@@ -336,7 +351,7 @@ export async function deleteParticipant(id) {
 // 8. Export CSV Client-Side (Instant download, UTF-8 BOM Excel compatible)
 export function exportAttendanceCsv(participantsList = null) {
   const participants = participantsList || getLocalParticipants();
-  let csv = 'ID,Barcode,Nama Peserta,Institusi,Email,Telepon,Registrasi Awal,Sesi 1,Sesi 2,Sesi 3,Penerimaan Sertifikat\n';
+  let csv = 'ID,Barcode,Nama Peserta,Institusi,Email,Telepon,Registrasi Awal dan Suvenir,Sesi 1,Sesi 2,Sesi 3,Penerimaan Sertifikat\n';
 
   participants.forEach((p) => {
     const reg = p.attendance?.registrasi_awal?.status === 'hadir' ? 'Hadir' : (p.attendance?.registrasi_awal?.status === 'tidak_hadir' ? 'Tidak Hadir' : '-');

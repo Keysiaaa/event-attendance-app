@@ -23,7 +23,7 @@ export default function AttendanceRecapTab({
   const [sessionFilter, setSessionFilter] = useState('all');
 
   const SESSIONS = [
-    { id: 'registrasi_awal', name: 'Registrasi awal', short: 'Registrasi' },
+    { id: 'registrasi_awal', name: 'Registrasi awal dan Suvenir', short: 'Registrasi & Suvenir' },
     { id: 'sesi_1', name: 'Sesi 1', short: 'Sesi 1' },
     { id: 'sesi_2', name: 'Sesi 2', short: 'Sesi 2' },
     { id: 'sesi_3', name: 'Sesi 3', short: 'Sesi 3' },

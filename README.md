@@ -29,7 +29,7 @@ Aplikasi web modern untuk manajemen kehadiran peserta event dengan dukungan **Ba
      - ID / Barcode Peserta
      - Instansi / Lembaga Peserta
    - Menampilkan 5 pilihan sesi:
-     1. **Registrasi awal**
+     1. **Registrasi awal dan Suvenir**
      2. **Sesi 1**
      3. **Sesi 2**
      4. **Sesi 3**

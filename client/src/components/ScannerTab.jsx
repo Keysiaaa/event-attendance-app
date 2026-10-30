@@ -44,7 +44,7 @@ export default function ScannerTab({
   const inputRef = useRef(null);
 
   const SESSIONS = [
-    { id: 'registrasi_awal', name: 'Registrasi awal', order: 1 },
+    { id: 'registrasi_awal', name: 'Registrasi awal dan Suvenir', order: 1 },
     { id: 'sesi_1', name: 'Sesi 1', order: 2 },
     { id: 'sesi_2', name: 'Sesi 2', order: 3 },
     { id: 'sesi_3', name: 'Sesi 3', order: 4 },
