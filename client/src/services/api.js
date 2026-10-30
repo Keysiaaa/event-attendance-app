@@ -136,13 +136,36 @@ export function importAndMergeSyncData(incomingList) {
   return { merged, updatedCount };
 }
 
+// Helper: Format & normalisasi objek peserta agar konsisten dengan skema database
+export function normalizeParticipant(p) {
+  return {
+    id: p.id || p.barcode,
+    barcode: p.barcode || p.id,
+    name: p.name || '',
+    institution: p.institution || '-',
+    email: p.email || '-',
+    phone: p.phone || '-',
+    jabatan: p.jabatan || '-',
+    daerahKerja: p.daerahKerja || '-',
+    attendance: p.attendance || {
+      registrasi_awal: null,
+      sesi_1: null,
+      sesi_2: null,
+      sesi_3: null,
+      sertifikat: null
+    },
+    createdAt: p.createdAt || p.created_at || new Date().toISOString(),
+    isNew: Boolean(p.isNew || p.is_new)
+  };
+}
+
 // Helper: Sinkronisasi data awal ke Supabase jika database masih kosong
 export async function syncInitialDataToCloud() {
   const supabase = getSupabase();
   if (!supabase) return false;
 
   try {
-    const currentList = getLocalParticipants();
+    const currentList = getLocalParticipants().map(normalizeParticipant);
     const { error } = await supabase.from('participants').upsert(currentList, { onConflict: 'id' });
     if (error) {
       console.error('Error saat sinkronisasi data ke Supabase:', error);
@@ -372,7 +395,7 @@ export async function addParticipant(data) {
     }
   }
 
-  const newParticipant = {
+  const newParticipant = normalizeParticipant({
     id: newBarcode,
     barcode: newBarcode,
     name: name.trim(),
@@ -386,9 +409,9 @@ export async function addParticipant(data) {
       sesi_3: null,
       sertifikat: null
     },
-    created_at: new Date().toISOString(),
-    is_new: true
-  };
+    createdAt: new Date().toISOString(),
+    isNew: true
+  });
 
   participants.unshift(newParticipant);
   saveLocalParticipants(participants);
@@ -434,7 +457,7 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
 
     maxNum++;
     const code = `EVT-${maxNum}`;
-    const newP = {
+    const newP = normalizeParticipant({
       id: code,
       barcode: code,
       name: rawName,
@@ -448,9 +471,9 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
         sesi_3: null,
         sertifikat: null
       },
-      created_at: new Date().toISOString(),
-      is_new: true
-    };
+      createdAt: new Date().toISOString(),
+      isNew: true
+    });
     participants.unshift(newP);
     addedList.push(newP);
   }
