@@ -142,9 +142,16 @@ export default function BarcodeCard({
     <div className="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group">
       {/* Top Card Badge */}
       <div className="bg-slate-50/80 px-4 py-2.5 border-b border-slate-100 flex items-center justify-between">
-        <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
-          {barcodeValue}
-        </span>
+        <div className="flex items-center gap-1.5">
+          {participant.isNew && (
+            <span className="bg-emerald-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-full shadow-xs animate-pulse">
+              BARU
+            </span>
+          )}
+          <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
+            {barcodeValue}
+          </span>
+        </div>
         <div className="flex items-center gap-1.5 text-xs text-slate-500">
           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
           <span>{completedSessions}/5 Sesi Hadir</span>

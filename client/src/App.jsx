@@ -7,6 +7,7 @@ import CommitteeLoginModal from './components/CommitteeLoginModal';
 import AddParticipantModal from './components/AddParticipantModal';
 import BatchImportModal from './components/BatchImportModal';
 import PrintAllBadges from './components/PrintAllBadges';
+import { CheckCircle2 } from 'lucide-react';
 import { fetchParticipants as loadParticipants, deleteParticipant as removeParticipant } from './services/api';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
   const [isPrintAllOpen, setIsPrintAllOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
 
   // Fetch participants
   const fetchParticipants = async () => {
@@ -81,7 +83,15 @@ export default function App() {
   };
 
   const handleParticipantAdded = (newParticipant) => {
-    setParticipants((prev) => [...prev, newParticipant]);
+    setParticipants((prev) => [newParticipant, ...prev]);
+    setActiveTab('generator');
+    setNotification({
+      type: 'success',
+      message: `Peserta "${newParticipant.name}" (${newParticipant.barcode}) berhasil ditambahkan dan berada di urutan paling atas!`
+    });
+    setTimeout(() => {
+      setNotification(null);
+    }, 6000);
   };
 
   if (isPrintAllOpen) {
@@ -104,7 +114,27 @@ export default function App() {
           onOpenLogin={() => setIsLoginModalOpen(true)}
           onLogout={handleLogout}
           totalParticipants={participants.length}
+          onOpenAddModal={() => setIsAddModalOpen(true)}
         />
+
+        {notification && (
+          <div className="max-w-7xl mx-auto px-4 mt-4 animate-in fade-in slide-in-from-top-4 duration-200">
+            <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <p className="text-sm font-semibold">{notification.message}</p>
+              </div>
+              <button
+                onClick={() => setNotification(null)}
+                className="text-emerald-700 hover:text-emerald-900 text-xs font-bold px-2 py-1 rounded-lg hover:bg-emerald-100 transition"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
 
         <main className="pb-16">
           {activeTab === 'generator' && (

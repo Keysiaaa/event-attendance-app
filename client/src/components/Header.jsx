@@ -1,5 +1,5 @@
 import React from 'react';
-import { QrCode, ScanLine, FileSpreadsheet, UserCheck, LogIn, LogOut, ShieldCheck, Users } from 'lucide-react';
+import { QrCode, ScanLine, FileSpreadsheet, UserCheck, LogIn, LogOut, ShieldCheck, Users, UserPlus } from 'lucide-react';
 
 export default function Header({ 
   activeTab, 
@@ -7,7 +7,8 @@ export default function Header({
   committee, 
   onOpenLogin, 
   onLogout,
-  totalParticipants
+  totalParticipants,
+  onOpenAddModal
 }) {
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
@@ -78,8 +79,17 @@ export default function Header({
             </button>
           </nav>
 
-          {/* Committee Login State */}
-          <div className="flex items-center space-x-3">
+          {/* Actions & Committee Login State */}
+          <div className="flex items-center space-x-2.5">
+            {onOpenAddModal && (
+              <button
+                onClick={onOpenAddModal}
+                className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-xs"
+              >
+                <UserPlus className="w-3.5 h-3.5" />
+                <span>+ Peserta</span>
+              </button>
+            )}
             {committee ? (
               <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />

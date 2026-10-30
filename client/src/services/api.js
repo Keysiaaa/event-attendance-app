@@ -19,6 +19,13 @@ export const SESSIONS = [
   { id: 'sertifikat', name: 'Penerimaan sertifikat', order: 5 }
 ];
 
+// Determine if we should skip backend network calls (e.g. GitHub Pages or Vercel static)
+const isStaticDeploy = typeof window !== 'undefined' && (
+  window.location.hostname.includes('github.io') ||
+  window.location.hostname.includes('vercel.app') ||
+  (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+);
+
 // Helper: Get local data from localStorage or fallback to initial JSON
 export function getLocalParticipants() {
   try {
@@ -65,20 +72,25 @@ export function saveLocalParticipants(participants) {
   }
 }
 
+// Helper: Reset to initial 100 participants
+export function resetParticipantsToDefault() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(initialParticipants));
+  return initialParticipants;
+}
+
 // 1. Fetch all participants
 export async function fetchParticipants() {
-  // Try backend API first
-  try {
-    const res = await fetch('/api/participants', { signal: AbortSignal.timeout(3000) });
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        saveLocalParticipants(data);
-        return data;
+  if (!isStaticDeploy) {
+    try {
+      const res = await fetch('/api/participants');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          saveLocalParticipants(data);
+          return data;
+        }
       }
-    }
-  } catch (err) {
-    // API not available, will use localStorage
+    } catch (err) {}
   }
   return getLocalParticipants();
 }
@@ -88,20 +100,19 @@ export async function lookupParticipant(code) {
   const cleanCode = (code || '').trim().toLowerCase();
   if (!cleanCode) return { success: false, message: 'Kode barcode tidak boleh kosong.' };
 
-  // Try API first
-  try {
-    const res = await fetch(`/api/participants/lookup/${encodeURIComponent(cleanCode)}`, {
-      signal: AbortSignal.timeout(3000)
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success && data.participant) {
-        return data;
+  if (!isStaticDeploy) {
+    try {
+      const res = await fetch(`/api/participants/lookup/${encodeURIComponent(cleanCode)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.participant) {
+          return data;
+        }
       }
-    }
-  } catch (err) {}
+    } catch (err) {}
+  }
 
-  // Fallback to local storage
+  // Lookup in local data
   const participants = getLocalParticipants();
   const found = participants.find(
     (p) =>
@@ -126,19 +137,19 @@ export async function verifyCommittee(email) {
     return { success: false, message: 'Harap masukkan email Anda.' };
   }
 
-  // Try API
-  try {
-    const res = await fetch('/api/auth/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: cleanEmail }),
-      signal: AbortSignal.timeout(3000)
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success) return data;
-    }
-  } catch (err) {}
+  if (!isStaticDeploy) {
+    try {
+      const res = await fetch('/api/auth/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: cleanEmail })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) return data;
+      }
+    } catch (err) {}
+  }
 
   // Fallback local verification
   const isAuth = AUTHORIZED_COMMITTEE.map((e) => e.toLowerCase()).includes(cleanEmail);
@@ -163,28 +174,27 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
     return { success: false, message: 'Email panitia wajib disertakan.' };
   }
 
-  // Try API
-  try {
-    const res = await fetch('/api/attendance', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-committee-email': committeeEmail
-      },
-      body: JSON.stringify({ barcode, sessionId, status, committeeEmail }),
-      signal: AbortSignal.timeout(3000)
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success && data.participant) {
-        // Sync local storage
-        const list = getLocalParticipants();
-        const updated = list.map((p) => (p.id === data.participant.id ? data.participant : p));
-        saveLocalParticipants(updated);
-        return data;
+  if (!isStaticDeploy) {
+    try {
+      const res = await fetch('/api/attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-committee-email': committeeEmail
+        },
+        body: JSON.stringify({ barcode, sessionId, status, committeeEmail })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.participant) {
+          const list = getLocalParticipants();
+          const updated = list.map((p) => (p.id === data.participant.id ? data.participant : p));
+          saveLocalParticipants(updated);
+          return data;
+        }
       }
-    }
-  } catch (err) {}
+    } catch (err) {}
+  }
 
   // Local record attendance
   const participants = getLocalParticipants();
@@ -234,7 +244,7 @@ export async function recordAttendance(barcode, sessionId, status, committeeEmai
   };
 }
 
-// 5. Add Single Participant
+// 5. Add Single Participant (Guaranteed Unique & Instant)
 export async function addParticipant(data) {
   const { name, institution, email, phone, customBarcode } = data;
   if (!name || !name.trim()) {
@@ -243,13 +253,36 @@ export async function addParticipant(data) {
 
   const participants = getLocalParticipants();
   let newBarcode = (customBarcode || '').trim();
-  if (!newBarcode) {
-    const nextNum = 1000 + participants.length + 1;
-    newBarcode = `EVT-${nextNum}`;
-  }
 
-  if (participants.some((p) => p.barcode?.toLowerCase() === newBarcode.toLowerCase())) {
-    return { success: false, message: `Barcode "${newBarcode}" sudah digunakan oleh peserta lain.` };
+  if (!newBarcode) {
+    // Find the highest number in existing barcodes
+    let maxNum = 1000;
+    participants.forEach((p) => {
+      const match = (p.barcode || p.id || '').match(/(\d+)/);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        if (!isNaN(num) && num > maxNum) {
+          maxNum = num;
+        }
+      }
+    });
+
+    let candidate = maxNum + 1;
+    while (participants.some((p) => 
+      (p.barcode && p.barcode.toLowerCase() === `evt-${candidate}`.toLowerCase()) ||
+      (p.id && p.id.toLowerCase() === `evt-${candidate}`.toLowerCase())
+    )) {
+      candidate++;
+    }
+    newBarcode = `EVT-${candidate}`;
+  } else {
+    // Check if custom barcode already exists
+    if (participants.some((p) => 
+      (p.barcode && p.barcode.toLowerCase() === newBarcode.toLowerCase()) ||
+      (p.id && p.id.toLowerCase() === newBarcode.toLowerCase())
+    )) {
+      return { success: false, message: `Barcode "${newBarcode}" sudah digunakan oleh peserta lain.` };
+    }
   }
 
   const newParticipant = {
@@ -266,22 +299,25 @@ export async function addParticipant(data) {
       sesi_3: null,
       sertifikat: null
     },
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    isNew: true
   };
 
-  participants.push(newParticipant);
+  // Add at the beginning so user sees it right away!
+  participants.unshift(newParticipant);
   saveLocalParticipants(participants);
 
-  // Attempt backend async in background if available
-  fetch('/api/participants', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).catch(() => {});
+  if (!isStaticDeploy) {
+    fetch('/api/participants', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
 
   return {
     success: true,
-    message: 'Peserta berhasil ditambahkan dan barcode telah digenerate.',
+    message: `Peserta "${newParticipant.name}" berhasil ditambahkan dengan Barcode ${newBarcode}.`,
     participant: newParticipant
   };
 }
@@ -294,14 +330,22 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
 
   const participants = getLocalParticipants();
   const addedList = [];
-  let currentNum = 1000 + participants.length;
+
+  let maxNum = 1000;
+  participants.forEach((p) => {
+    const match = (p.barcode || p.id || '').match(/(\d+)/);
+    if (match) {
+      const num = parseInt(match[1], 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    }
+  });
 
   for (const item of names) {
     const rawName = typeof item === 'string' ? item.trim() : (item.name || '').trim();
     if (!rawName) continue;
 
-    currentNum++;
-    const code = `EVT-${currentNum}`;
+    maxNum++;
+    const code = `EVT-${maxNum}`;
     const newP = {
       id: code,
       barcode: code,
@@ -316,20 +360,22 @@ export async function batchImportParticipants(names, institutionDefault = '-') {
         sesi_3: null,
         sertifikat: null
       },
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      isNew: true
     };
-    participants.push(newP);
+    participants.unshift(newP);
     addedList.push(newP);
   }
 
   saveLocalParticipants(participants);
 
-  // Background API attempt
-  fetch('/api/participants/batch', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ names, institutionDefault })
-  }).catch(() => {});
+  if (!isStaticDeploy) {
+    fetch('/api/participants/batch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ names, institutionDefault })
+    }).catch(() => {});
+  }
 
   return {
     success: true,
@@ -344,7 +390,9 @@ export async function deleteParticipant(id) {
   const filtered = participants.filter((p) => p.id !== id && p.barcode !== id);
   saveLocalParticipants(filtered);
 
-  fetch(`/api/participants/${id}`, { method: 'DELETE' }).catch(() => {});
+  if (!isStaticDeploy) {
+    fetch(`/api/participants/${id}`, { method: 'DELETE' }).catch(() => {});
+  }
   return { success: true };
 }
 
